@@ -3,10 +3,8 @@ FROM gitpod/workspace-postgres:latest
 SHELL ["/bin/bash", "-c"]
 
 RUN sudo apt-get update \
-    && sudo apt-get update \
     && sudo apt-get clean \
-    && sudo rm -rf /var/cache/apt/* /var/lib/apt/lists/* /tmp/* \
-    && sudo apt-get install netcat gcc 
+    && sudo rm -rf /var/cache/apt/* /var/lib/apt/lists/* /tmp/* 
 
 # That Gitpod install pyenv for me? no, thanks
 WORKDIR /home/gitpod/
