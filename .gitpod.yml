@@ -1,0 +1,25 @@
+image:
+  file: .gitpod.Dockerfile
+ports:
+    - port: 8000
+      onOpen: open-preview
+      visibility: public
+    - port: 5432
+      onOpen: ignore
+      visibility: public
+tasks:
+  - init: >
+      (cp -n .env.example .env || true) && 
+    command: >
+        poetry shell &
+        poetry install &&
+        uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+
+github:
+  prebuilds:
+    # enable for the master/default branch (defaults to true)
+    main: false
+
+vscode:
+  extensions:
+    - ms-python.python
