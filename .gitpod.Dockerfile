@@ -18,7 +18,7 @@ RUN curl https://pyenv.run | bash
 
 
 RUN pyenv update && pyenv install 3.11.1 && pyenv global 3.11.1
-RUN pip install poetry uvicorn pgcli
+RUN pip install poetry uvicorn
 
 # remove PIP_USER environment
 USER gitpod

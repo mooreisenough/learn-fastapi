@@ -1,0 +1,66 @@
+# version is now using "compose spec"
+# v2 and v3 are now combined!
+# docker-compose v1.27+ required
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:16beta2-bullseye
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+      - "./healthchecks:/healthchecks"
+    healthcheck:
+      test: /healthchecks/postgres.sh
+      interval: "5s"
+    networks:
+      - data-tier
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: george@mooreisenough.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+  neo4j:
+      image: neo4j:latest
+      restart: unless-stopped
+      ports:
+        - 7474:7474
+        - 7687:7687
+      volumes:
+        - "./neo4j/conf:/conf"
+        - "./neo4j/data:/data"
+        - "./neo4j/import:/import"
+        - "./neo4j/logs:/logs"
+        - "./neo4j/plugins:/plugins"
+      environment: 
+        # Raise memory limits
+        - NEO4J_dbms_memory_pagecache_size=1G
+        - NEO4J_dbms.memory.heap.initial_size=1G
+        - NEO4J_dbms_memory_heap_max__size=1G
+        - NEO4J_apoc_export_file_enabled=true 
+        - NEO4J_apoc_import_file_enabled=true 
+        - NEO4J_apoc_import_file_use__neo4j__config=true
+       # Simple check testing whether the port 7474 is opened.
+    # If so, the instance running inside the container is considered as "healthy".
+    # This status can be checked using the "docker ps" command.
+      healthcheck:
+        test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider localhost:7474 || exit 1"]
+      networks:
+        - data-tier
+volumes:
+  db-data:
+  pgadmin-data:
+
+networks:
+  data-tier:

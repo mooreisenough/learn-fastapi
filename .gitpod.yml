@@ -6,16 +6,26 @@ ports:
       visibility: public
     - port: 5432
       onOpen: ignore
+      visibility: public
+    - port: 5050
+      onOpen: ignore
+      visibility: public
+    - port: 7474
+      onOpen: ignore
+      visibility: public
+    - port: 7687
+      onOpen: ignore
       visibility: private
 tasks:
-  - init: >
-      (cp -n .env.example .env || true) && 
-    command: >
-        poetry config virtualenvs.in-project true &&
-        poetry shell &&
-        source .venv/bin/activate &&
-        poetry install &&
-        uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+  - init: |
+      (cp -n .env.example .env || true) 
+      docker-compose build
+    command: |
+      poetry config virtualenvs.in-project true
+      poetry shell 
+      source .venv/bin/activate 
+      poetry install 
+      docker-compose up
 
 github:
   prebuilds:
