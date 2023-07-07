@@ -14,7 +14,7 @@ tasks:
   - name: lesson
     init: |
       echo $LESSON && cd $LESSON
-      docker-compose build
+      docker-compose pull
       poetry config virtualenvs.in-project true
       poetry shell 
       source .venv/bin/activate 
