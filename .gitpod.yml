@@ -11,14 +11,16 @@ ports:
       onOpen: ignore
       visibility: public
 tasks:
-  - init: |
+  - name: lesson
+    init: |
+      (cd ${LESSON})
       docker-compose build
-    command: |
       poetry config virtualenvs.in-project true
       poetry shell 
       source .venv/bin/activate 
       poetry install 
-
+    command: |
+      docker-compose up
 github:
   prebuilds:
     # enable for the master/default branch (defaults to true)
