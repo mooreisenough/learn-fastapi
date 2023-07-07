@@ -1,0 +1,29 @@
+image:
+  file: .gitpod.Dockerfile
+ports:
+    - port: 8000
+      onOpen: ignore
+      visibility: public
+    - port: 5432
+      onOpen: ignore
+      visibility: public
+    - port: 5050
+      onOpen: ignore
+      visibility: public
+tasks:
+  - init: |
+      docker-compose build
+    command: |
+      poetry config virtualenvs.in-project true
+      poetry shell 
+      source .venv/bin/activate 
+      poetry install 
+
+github:
+  prebuilds:
+    # enable for the master/default branch (defaults to true)
+    main: false
+
+vscode:
+  extensions:
+    - ms-python.python
