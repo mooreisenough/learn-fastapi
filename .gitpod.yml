@@ -13,7 +13,7 @@ ports:
 tasks:
   - name: lesson
     init: |
-      (cd ${LESSON})
+      (cd $LESSON)
       docker-compose build
       poetry config virtualenvs.in-project true
       poetry shell 
