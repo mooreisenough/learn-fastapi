@@ -6,8 +6,11 @@ ports:
       visibility: public
     - port: 5432
       onOpen: ignore
-      visibility: public
+      visibility: private
     - port: 5050
+      onOpen: ignore
+      visibility: public
+    - port: 9999
       onOpen: ignore
       visibility: public
 tasks:
