@@ -23,7 +23,7 @@ tasks:
       source .venv/bin/activate 
       poetry install 
     command: |
-      docker-compose up
+      docker-compose up -d
 github:
   prebuilds:
     # enable for the master/default branch (defaults to true)
