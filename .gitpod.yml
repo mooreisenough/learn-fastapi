@@ -17,13 +17,13 @@ tasks:
   - name: lesson
     init: |
       echo $LESSON && cd $LESSON
-      docker-compose pull
+      pip install poetry uvicorn
       poetry config virtualenvs.in-project true
       poetry shell 
       source .venv/bin/activate 
       poetry install 
     command: |
-      docker-compose up -d
+      docker-compose pull && docker-compose up -d
 github:
   prebuilds:
     # enable for the master/default branch (defaults to true)
