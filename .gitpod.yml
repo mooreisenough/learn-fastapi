@@ -20,10 +20,10 @@ tasks:
       pip install poetry uvicorn
       poetry config virtualenvs.in-project true
       poetry shell 
-      source .venv/bin/activate 
-      poetry install 
+      poetry install
     command: |
-      docker-compose pull && docker-compose up -d
+      source .venv/bin/activate 
+      
 github:
   prebuilds:
     # enable for the master/default branch (defaults to true)

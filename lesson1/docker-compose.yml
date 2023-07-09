@@ -42,6 +42,21 @@ services:
       - 9999:8080
     networks:
       - data-tier
+  migrations:
+    build:
+      context: .
+    command:
+      - "up"
+    environment:
+      - DB_HOST=postgres
+      - DB_NAME=localdb
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+    depends_on:
+      - postgres
+    networks:
+      - data-tier
 volumes:
   db-data:
   pgadmin-data:
