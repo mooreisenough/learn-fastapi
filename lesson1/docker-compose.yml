@@ -10,8 +10,8 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - "db-data:/var/lib/postgresql/data"
       - "./healthchecks:/healthchecks"
@@ -27,8 +27,8 @@ services:
     ports:
       - "5050:80"
     environment:
-      PGADMIN_DEFAULT_EMAIL: george@mooreisenough.org
-      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_USER}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
     volumes:
       - pgadmin-data:/var/lib/pgadmin
     networks:
@@ -40,21 +40,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 9999:8080
-    networks:
-      - data-tier
-  migrations:
-    build:
-      context: .
-    command:
-      - "up"
-    environment:
-      - DB_HOST=postgres
-      - DB_NAME=localdb
-      - DB_PORT=5432
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-    depends_on:
-      - postgres
     networks:
       - data-tier
 volumes:

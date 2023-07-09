@@ -17,7 +17,7 @@ tasks:
   - name: lesson
     init: |
       echo $LESSON && cd $LESSON
-      pip install poetry uvicorn
+      pip install poetry uvicorn yoyo-migrations
       poetry config virtualenvs.in-project true
       poetry shell 
       poetry install
