@@ -17,3 +17,9 @@ Using YoYo migrations
 3. yoyo list
 4. yoyo apply 
 
+To Run Test:  
+1. set environment variables (need to do this via .env)
+    - export DATABASE_URL=postgres://postgres:postgres@web-db:5432/web_dev
+    - export DATABASE_TEST_URL=postgres://postgres:postgres@web-db:5432/web_test
+    - export ENVIRONMENT=dev
+2. poetry run python -m pytest
