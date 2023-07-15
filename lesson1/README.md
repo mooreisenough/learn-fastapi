@@ -7,19 +7,14 @@ Once at the Terminal in GitPod, run these commands to get started
 
 
 1. docker-compose pull | to pull Postgres & PGAdmin
-2. docker-compose --env-file .env.dev up -d | start containers
-3. run Database Migrations scripts using yoyo (see below)
-4. uvicorn app.main:app --reload - To run the app
-
-Using YoYo migrations 
-1. yoyo init | update database info
-2. yoyo new --sql | edit SQL
-3. yoyo list
-4. yoyo apply 
+2. make start-docker
+3. make db-migrations
+4. make table-migrations
+5. make run-app
 
 To Run Test:  
 1. set environment variables (need to do this via .env)
     - export DATABASE_URL=postgres://postgres:postgres@web-db:5432/web_dev
     - export DATABASE_TEST_URL=postgres://postgres:postgres@web-db:5432/web_test
     - export ENVIRONMENT=dev
-2. poetry run python -m pytest
+2. poetry run python -m pytest or "make run-tests"
